@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
 import Animals from './animal';
+import Form from './form';
 import './App.css';
 
 class App extends Component {
-  state = {
-    tokenSet: false,
-    token: '',
-    animals: []
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tokenSet: false,
+      token: '',
+      animals: []
+    }
+
   }
 
+  getData = (list) => {
+    this.setState({animals: list});
+  }
+  
   componentDidMount() {
       fetch('https://api.petfinder.com/v2/oauth2/token', {
         method: 'post',
@@ -26,49 +36,19 @@ class App extends Component {
       .then((data) => {
         this.setState({token: data.access_token}); 
         this.setState({tokenSet: true});
-        fetch('https://api.petfinder.com/v2/animals', {
-          method: 'get',
-          headers: {
-            'Authorization': 'Bearer ' + this.state.token
-          }
-        })
-        .then(res => res.json())
-        .then((data) => {
-          this.setState({ animals: data.animals });
-          console.log(this.state.animals);
-        })
-        .catch(console.log)
       })
       .catch(console.log)
-    
-    
-
-    
-  }
+  }//end componentMount
 
   render () {
     return (
-      <Animals animals={this.state.animals} />
+      <div>
+        <h1>Animals list</h1>
+        <Form token={this.state.token} updateList={this.getData} />
+        {this.state.animals ? <Animals animals={this.state.animals} /> : ''}
+      </div>
     );
   }
 }
 
 export default App;
-
-
-
-
-/*
-
-
-REQUEST ACCESS TOKEN:
-curl -d "grant_type=client_credentials&client_id=006NnSFxxKEXpjLmZgpDs49I7hfXBCKseDYKoNcfQeqEJqr2AE&client_secret=SzkuKhvucwMQpcwwPgfIyfAesfOGKsIasbWx8xVT" https://api.petfinder.com/v2/oauth2/token
-
-
-QUERY DATABASE:
-curl -H "Authorization: Bearer {YOUR_ACCESS_TOKEN}" GET https://api.petfinder.com/v2/{CATEGORY}/{ACTION}?{parameter_1}={value_1}&{parameter_2}={value_2}
-
-
-
-
-*/

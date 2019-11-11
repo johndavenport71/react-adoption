@@ -5,6 +5,15 @@ import Animals from './animal';
 import Form from './form';
 import * as serviceWorker from './serviceWorker';
 
+/*
+TODO:
+Add pagination
+Finalize info to be displayed for each animal
+No photo image
+Styling
+Zipcode error checking
+*/
+
 class App extends Component {
     constructor(props) {
       super(props);

@@ -31,9 +31,10 @@ class App extends Component {
       this.setState({animals: list});
       this.setState({searched: true});
     }
-    
-    componentDidMount() {
-        fetch('https://api.petfinder.com/v2/oauth2/token', {
+
+    getToken = () => {
+      let status = 0;
+      fetch('https://api.petfinder.com/v2/oauth2/token', {
           method: 'post',
           headers: {
             'Accept': 'application/json',
@@ -45,12 +46,30 @@ class App extends Component {
             'grant_type': 'client_credentials'
           })
         })
-        .then(res => res.json())
+        .then(res => {
+          status = res.status;
+          return res.json();
+        })
         .then((data) => {
-          this.setState({token: data.access_token}); 
-          this.setState({tokenSet: true});
+          switch (status) {
+            case 200:
+                this.setState({token: data.access_token}); 
+                this.setState({tokenSet: true});
+                break;
+            case 401:
+              console.log('bad auth');
+              break;
+            default:
+              console.log('Something went wrong?');
+              break;
+          }
+          
         })
         .catch(console.log)
+    }
+    
+    componentDidMount() {
+        this.getToken();
     }//end componentMount
   
     render () {

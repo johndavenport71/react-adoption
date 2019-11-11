@@ -49,6 +49,8 @@ class Form extends Component {
         })
         .then(res => res.json())
         .then((data) => {
+            //TODO: Error catching
+
             //pass data to parent component
             this.props.updateList(data.animals);
         })

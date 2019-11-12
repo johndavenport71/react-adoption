@@ -6,6 +6,7 @@ const Animals = ({ animals }) => {
             {animals.map((animal, i) => (
                 <div className="card" key={i}>
                     <h2>{animal.name}</h2>
+                    <p>{animal.gender} - {animal.type} - {animal.breeds.primary}</p>
                     <div className="img-wrapper">
                         {animal.photos[0] ? <img src={animal.photos[0].medium} alt={animal.name} /> : 'No Picture Available'}
                     </div>

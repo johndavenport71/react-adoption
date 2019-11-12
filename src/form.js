@@ -9,16 +9,67 @@ class Form extends Component {
             animaltype: '',
             breed: '',
             gender: '',
-            distance: 100
+            distance: 100,
+            next: '',
+            prev: '',
+            page: 1
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.nextPage = this.nextPage.bind(this);
     }
 
     handleChange(event) {
         var fieldName = event.target.name;
         this.setState({[fieldName]: event.target.value});
+    }
+
+    nextPage(params) {
+        let status = 0;
+        let url = 'https://api.petfinder.com';
+        if(params) {
+            url += params;
+        } else {
+            return;
+        }
+        fetch(url, {
+            method: 'get',
+            headers: {
+                'Authorization': 'Bearer ' + this.props.token
+            }
+        })
+        .then(res => {
+            status = res.status;
+            return res.json();
+        })
+        .then((data) => {
+            console.log(data);
+            switch (status) {
+                case 200:
+                    this.setState({next: data.pagination._links.next.href});
+                    if(data.pagination._links.previous){
+                        this.setState({prev: data.pagination._links.previous.href});
+                    }
+                    var currentPage = data.pagination.current_page;
+                    this.setState({page: currentPage});
+                    this.props.updateList(data.animals);
+                    break;
+                case 400:
+                    this.props.updateList('');
+                    break;
+                case 401:
+                    this.props.updateList('');
+                    break;
+                case 500:
+                    this.props.updateList('');
+                    break;
+                default:
+                    this.props.updateList('');
+                    break;
+            }//end switch
+        })
+        .catch(console.log)
     }
 
     handleSubmit(event) {
@@ -53,6 +104,7 @@ class Form extends Component {
         .then((data) => {
             switch (status) {
                 case 200:
+                    this.setState({next: data.pagination._links.next.href});
                     this.props.updateList(data.animals);
                     break;
                 case 400:
@@ -138,6 +190,8 @@ class Form extends Component {
                     <br></br>
                     <input type="submit" value="Search" />
                 </form>
+                {this.state.page > 1 ? <button onClick={() => this.nextPage(this.state.prev)}>Previous</button> : ''}
+                <button onClick={() => this.nextPage(this.state.next)}>Next</button>
             </div>
         );
     }

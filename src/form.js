@@ -39,20 +39,35 @@ class Form extends Component {
         if(this.state.gender) {
             url += 'gender=' + this.state.gender + '&';
         }
-
-        
-       fetch(url, {
-          method: 'get',
-          headers: {
-            'Authorization': 'Bearer ' + this.props.token
-          }
+        let status = 0;
+        fetch(url, {
+            method: 'get',
+            headers: {
+                'Authorization': 'Bearer ' + this.props.token
+            }
         })
-        .then(res => res.json())
+        .then(res => {
+            status = res.status;
+            return res.json();
+        })
         .then((data) => {
-            //TODO: Error catching
-
-            //pass data to parent component
-            this.props.updateList(data.animals);
+            switch (status) {
+                case 200:
+                    this.props.updateList(data.animals);
+                    break;
+                case 400:
+                    this.props.updateList('');
+                    break;
+                case 401:
+                    this.props.updateList('');
+                    break;
+                case 500:
+                    this.props.updateList('');
+                    break;
+                default:
+                    this.props.updateList('');
+                    break;
+            }//end switch
         })
         .catch(console.log)
     }

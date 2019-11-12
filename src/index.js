@@ -11,7 +11,6 @@ Add pagination
 Finalize info to be displayed for each animal
 No photo image
 Styling
-Zipcode error checking
 */
 
 class App extends Component {

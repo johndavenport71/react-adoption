@@ -142,9 +142,8 @@ class Form extends Component {
                         ''
                     }
                     
-                    <label htmlFor="animaltype">Animal Type</label>
                     <select id="animaltype" name="animaltype" value={this.state.animaltype} onChange={this.handleChange} >
-                        <option value="">All</option>
+                        <option value="">Animal Type</option>
                         <option value="cat">Cats</option>
                         <option value="dog">Dogs</option>
                     </select>

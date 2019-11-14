@@ -1,8 +1,64 @@
+@import url('https://fonts.googleapis.com/css?family=Expletus+Sans|Noto+Sans&display=swap');
+
+/*
+HEADERS:
+    font-family: 'Expletus Sans', cursive;
+PARAGRAPH/OTHER:
+    font-family: 'Noto Sans', sans-serif;
+*/
+
+/********Lazy Browser Reset*********/
+* {
+  box-sizing: border-box;
+  margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
 body {
+  font-family: 'Noto Sans', sans-serif;
   padding: 1rem;
 }
 
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Expletus Sans', cursive;
+}
+
+h1 {
+  color: #1E373D;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 30px;
+}
+
+h3 {
+  font-weight: normal;
+  font-size: 24px;
+}
+
+
+/**********CARD STYLES***********/
+.card {
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  margin: 1rem auto;
+  min-height: 250px;
+  width: 95%;
+}
+
 .img-wrapper {
+  float: left;
   height: 125px;
   width: 125px;
   overflow: hidden;
@@ -11,4 +67,86 @@ body {
 .img-wrapper img {
   height: auto;
   width: 125px;
+}
+
+/********FORM STYLING********/
+form {
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+}
+
+select {
+  background: #9EC0C8;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  font-size: 18px;
+  color: #1E373D;
+  margin: .5rem 0;
+  padding: .5rem 1rem;
+  width: 100%;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+input[type='number'] {
+  -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+label {
+  font-size: 18px;
+  color: #1E373D;
+}
+
+label[for=zipcode],
+label[for=distance] {
+  background: #9EC0C8;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  display: inline-block;
+  margin: .5rem 0;
+  padding: .5rem 1rem;
+  width: 100%;
+}
+
+#zipcode,
+#distance {
+  border-radius: 3px;
+  position: absolute;
+  text-align: right;
+  padding-right: .5rem;
+}
+
+#zipcode {
+  right: 6%;
+  top: 17px;
+  width: 150px;
+}
+
+#distance {
+  right: 6%;
+  top: 73px;
+  width: 100px;
+}
+
+input[type=submit] {
+  background: #D47D9E;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-family: Expletus Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  padding: .25rem 0;
+  width: 100%;
 }

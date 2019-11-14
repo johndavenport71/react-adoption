@@ -3,12 +3,12 @@ body {
 }
 
 .img-wrapper {
-  height: 250px;
-  width: 250px;
+  height: 125px;
+  width: 125px;
   overflow: hidden;
 }
 
 .img-wrapper img {
   height: auto;
-  width: 250px;
+  width: 125px;
 }

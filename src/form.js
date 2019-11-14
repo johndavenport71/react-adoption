@@ -12,7 +12,7 @@ class Form extends Component {
             distance: 100,
             next: '',
             prev: '',
-            page: 1
+            page: 0
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -44,7 +44,6 @@ class Form extends Component {
             return res.json();
         })
         .then((data) => {
-            console.log(data);
             switch (status) {
                 case 200:
                     this.setState({next: data.pagination._links.next.href});
@@ -106,6 +105,7 @@ class Form extends Component {
                 case 200:
                     this.setState({next: data.pagination._links.next.href});
                     this.props.updateList(data.animals);
+                    this.setState({page: 1});
                     break;
                 case 400:
                     this.props.updateList('');
@@ -126,7 +126,7 @@ class Form extends Component {
 
     render () {
         return (
-            <div>
+            <div id="form-wrapper">
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="zipcode">Zipcode:</label>
                     <input type="text" id="zipcode" name="zipcode" value={this.state.zipcode} onChange={this.handleChange} />
@@ -191,7 +191,7 @@ class Form extends Component {
                     <input type="submit" value="Search" />
                 </form>
                 {this.state.page > 1 ? <button onClick={() => this.nextPage(this.state.prev)}>Previous</button> : ''}
-                <button onClick={() => this.nextPage(this.state.next)}>Next</button>
+                {this.state.page >= 1 ? <button onClick={() => this.nextPage(this.state.next)}>Next</button> : ''}
             </div>
         );
     }

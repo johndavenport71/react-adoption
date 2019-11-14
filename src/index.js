@@ -7,9 +7,7 @@ import * as serviceWorker from './serviceWorker';
 
 /*
 TODO:
-Add pagination
 Finalize info to be displayed for each animal
-No photo image
 Styling
 */
 

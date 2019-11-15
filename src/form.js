@@ -12,7 +12,8 @@ class Form extends Component {
             distance: 100,
             next: '',
             prev: '',
-            page: 0
+            page: 0,
+            loading: true
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -72,6 +73,7 @@ class Form extends Component {
     }
 
     handleSubmit(event) {
+        this.setState({loading: true});
         event.preventDefault();
         var url = 'https://api.petfinder.com/v2/animals?';
         if(this.state.animaltype) {
@@ -101,6 +103,7 @@ class Form extends Component {
             return res.json();
         })
         .then((data) => {
+            this.setState({loading: false});
             switch (status) {
                 case 200:
                     this.setState({next: data.pagination._links.next.href});
@@ -122,6 +125,10 @@ class Form extends Component {
             }//end switch
         })
         .catch(console.log)
+    }
+
+    componentDidMount() {
+        this.setState({loading: false});
     }
 
     render () {
@@ -191,6 +198,7 @@ class Form extends Component {
                 </form>
                 {this.state.page > 1 ? <button onClick={() => this.nextPage(this.state.prev)}>Previous</button> : ''}
                 {this.state.page >= 1 ? <button onClick={() => this.nextPage(this.state.next)}>Next</button> : ''}
+                {this.state.loading ? <div className="lds-ring"><div></div><div></div><div></div><div></div></div> : ''}
             </div>
         );
     }

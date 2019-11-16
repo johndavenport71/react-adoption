@@ -27,13 +27,17 @@ class Form extends Component {
     }
 
     nextPage(params) {
-        let status = 0;
         let url = 'https://api.petfinder.com';
         if(params) {
             url += params;
         } else {
             return;
         }
+        this.fetchAnimals(url);
+    }
+
+    fetchAnimals(url = 'https://api.petfinder.com/v2/animals?') {
+        let status = 0;
         fetch(url, {
             method: 'get',
             headers: {
@@ -45,14 +49,14 @@ class Form extends Component {
             return res.json();
         })
         .then((data) => {
+            this.setState({loading: false});
             switch (status) {
                 case 200:
                     this.setState({next: data.pagination._links.next.href});
                     if(data.pagination._links.previous){
                         this.setState({prev: data.pagination._links.previous.href});
                     }
-                    var currentPage = data.pagination.current_page;
-                    this.setState({page: currentPage});
+                    this.setState({page: data.pagination.current_page});
                     this.props.updateList(data.animals);
                     break;
                 case 400:
@@ -75,7 +79,7 @@ class Form extends Component {
     handleSubmit(event) {
         this.setState({loading: true});
         event.preventDefault();
-        var url = 'https://api.petfinder.com/v2/animals?';
+        let url = 'https://api.petfinder.com/v2/animals?';
         if(this.state.animaltype) {
             url += 'type=';
             url += this.state.animaltype;
@@ -91,40 +95,7 @@ class Form extends Component {
         if(this.state.gender) {
             url += 'gender=' + this.state.gender + '&';
         }
-        let status = 0;
-        fetch(url, {
-            method: 'get',
-            headers: {
-                'Authorization': 'Bearer ' + this.props.token
-            }
-        })
-        .then(res => {
-            status = res.status;
-            return res.json();
-        })
-        .then((data) => {
-            this.setState({loading: false});
-            switch (status) {
-                case 200:
-                    this.setState({next: data.pagination._links.next.href});
-                    this.props.updateList(data.animals);
-                    this.setState({page: 1});
-                    break;
-                case 400:
-                    this.props.updateList('');
-                    break;
-                case 401:
-                    this.props.updateList('');
-                    break;
-                case 500:
-                    this.props.updateList('');
-                    break;
-                default:
-                    this.props.updateList('');
-                    break;
-            }//end switch
-        })
-        .catch(console.log)
+        this.fetchAnimals(url);
     }
 
     componentDidMount() {

@@ -7,7 +7,6 @@ import * as serviceWorker from './serviceWorker';
 
 /*
 TODO:
-Finalize info to be displayed for each animal
 Styling
 */
 
@@ -72,7 +71,10 @@ class App extends Component {
     render () {
       return (
         <div>
-          <h1>Animals list</h1>
+          <header>
+            <img src="logo_transparent.png" alt="Pawsome logo" width="75" height="75"/>
+            <h1>Search</h1>
+          </header>    
           <Form token={this.state.token} updateList={this.getData} />
           {this.state.animals ? <Animals animals={this.state.animals} /> : ''}
           {this.state.animals.length === 0 && this.state.searched ? <h2>No results found, try changing your search criteria.</h2> : ''}

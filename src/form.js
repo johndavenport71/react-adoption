@@ -27,6 +27,7 @@ class Form extends Component {
     }
 
     nextPage(params) {
+        this.setState({loading: true});
         let url = 'https://api.petfinder.com';
         if(params) {
             url += params;
@@ -167,8 +168,11 @@ class Form extends Component {
                     <br></br>
                     <input type="submit" value="Search" />
                 </form>
-                {this.state.page > 1 ? <button onClick={() => this.nextPage(this.state.prev)}>Previous</button> : ''}
-                {this.state.page >= 1 ? <button onClick={() => this.nextPage(this.state.next)}>Next</button> : ''}
+                <div className="pagination">
+                    {this.state.page > 1 ? <button onClick={() => this.nextPage(this.state.prev)}>Previous</button> : ''}
+                    {this.state.page > 0 ? <p>{this.state.page}</p> : ''}
+                    {this.state.page >= 1 ? <button onClick={() => this.nextPage(this.state.next)}>Next</button> : ''}
+                </div>
                 {this.state.loading ? <div className="lds-ring"><div></div><div></div><div></div><div></div></div> : ''}
             </div>
         );

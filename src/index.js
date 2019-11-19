@@ -7,6 +7,8 @@ import * as serviceWorker from './serviceWorker';
 
 /*
 TODO:
+Break down components into smaller pieces
+  Pagination needs to be separate from form
 Styling
 */
 
@@ -18,14 +20,14 @@ class App extends Component {
         tokenSet: false,
         token: '',
         animals: [],
-        searched: false
+        searched: false,
+        showForm: true
       }
   
     }
   
     getData = (list) => {
-      this.setState({animals: list});
-      this.setState({searched: true});
+      this.setState({animals: list, searched: true, showForm: false});
     }
 
     getToken = () => {
@@ -75,7 +77,7 @@ class App extends Component {
             <img src="logo_transparent.png" alt="Pawsome logo" width="75" height="75"/>
             <h1>Search</h1>
           </header>    
-          <Form token={this.state.token} updateList={this.getData} />
+          {this.state.showForm ? <Form token={this.state.token} updateList={this.getData}/> : <button onClick={() => {this.setState({showForm: true})}}>Edit Search</button> }
           {this.state.animals ? <Animals animals={this.state.animals} /> : ''}
           {this.state.animals.length === 0 && this.state.searched ? <h2>No results found, try changing your search criteria.</h2> : ''}
         </div>

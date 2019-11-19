@@ -50,14 +50,17 @@ class Form extends Component {
             return res.json();
         })
         .then((data) => {
+            console.log(data);
             this.setState({loading: false});
             switch (status) {
                 case 200:
-                    this.setState({next: data.pagination._links.next.href});
-                    if(data.pagination._links.previous){
-                        this.setState({prev: data.pagination._links.previous.href});
+                    if(data.pagination._links) {
+                        this.setState({next: data.pagination._links.next.href});
+                        if(data.pagination._links.previous){
+                            this.setState({prev: data.pagination._links.previous.href});
+                        }
+                        this.setState({page: data.pagination.current_page});
                     }
-                    this.setState({page: data.pagination.current_page});
                     this.props.updateList(data.animals);
                     break;
                 case 400:
@@ -105,6 +108,7 @@ class Form extends Component {
 
     render () {
         return (
+            <>
             <div id="form-wrapper">
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="zipcode">Zipcode:</label>
@@ -168,13 +172,14 @@ class Form extends Component {
                     <br></br>
                     <input type="submit" value="Search" />
                 </form>
+                </div>
                 <div className="pagination">
                     {this.state.page > 1 ? <button onClick={() => this.nextPage(this.state.prev)}>Previous</button> : ''}
                     {this.state.page > 0 ? <p>{this.state.page}</p> : ''}
                     {this.state.page >= 1 ? <button onClick={() => this.nextPage(this.state.next)}>Next</button> : ''}
                 </div>
                 {this.state.loading ? <div className="lds-ring"><div></div><div></div><div></div><div></div></div> : ''}
-            </div>
+            </>
         );
     }
 }

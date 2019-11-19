@@ -25,12 +25,8 @@ class App extends Component {
       }
   
     }
-  
-    getData = (list) => {
-      this.setState({animals: list, searched: true, showForm: false});
-    }
 
-    getToken = () => {
+    getToken() {
       let status = 0;
       fetch('https://api.petfinder.com/v2/oauth2/token', {
           method: 'post',
@@ -61,13 +57,46 @@ class App extends Component {
               console.log('Something went wrong?');
               break;
           }
-          
         })
         .catch(console.log)
+    }//end getToken
+
+    fetchAnimals(url = 'https://api.petfinder.com/v2/animals?', token) {
+      let status = 0;
+      fetch(url, {
+          method: 'get',
+          headers: {
+              'Authorization': 'Bearer ' + token
+          }
+      })
+      .then(res => {
+          status = res.status;
+          return res.json();
+      })
+      .then((data) => {
+          console.log(data);
+          switch (status) {
+              case 200:
+                  this.setState({animals: data.animals, searched: true});
+              case 400:
+                  return false;
+              case 401:
+                  return false;
+              case 500:
+                  return false;
+              default:
+                  return false;
+          }//end switch
+      })
+      .catch(console.log)
+    }//end fetchAnimals
+    
+    getData = (url) => {
+      this.fetchAnimals(url, this.state.token);
     }
     
     componentDidMount() {
-        this.getToken();
+      this.getToken();
     }//end componentMount
   
     render () {
@@ -77,7 +106,7 @@ class App extends Component {
             <img src="logo_transparent.png" alt="Pawsome logo" width="75" height="75"/>
             <h1>Search</h1>
           </header>    
-          {this.state.showForm ? <Form token={this.state.token} updateList={this.getData}/> : <button onClick={() => {this.setState({showForm: true})}}>Edit Search</button> }
+          <Form updateList={this.getData}/>
           {this.state.animals ? <Animals animals={this.state.animals} /> : ''}
           {this.state.animals.length === 0 && this.state.searched ? <h2>No results found, try changing your search criteria.</h2> : ''}
         </div>

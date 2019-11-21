@@ -10,15 +10,11 @@ class Form extends Component {
             breed: '',
             gender: '',
             distance: 100,
-            next: '',
-            prev: '',
-            page: 0,
             loading: true
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        //this.nextPage = this.nextPage.bind(this);
     }
 
     handleChange(event) {
@@ -26,19 +22,7 @@ class Form extends Component {
         this.setState({[fieldName]: event.target.value});
     }
 
-    // nextPage(params) {
-    //     this.setState({loading: true});
-    //     let url = 'https://api.petfinder.com';
-    //     if(params) {
-    //         url += params;
-    //     } else {
-    //         return;
-    //     }
-    //     conn.fetchAnimals(url, this.props.token);
-    // }
-
     handleSubmit(event) {
-        // this.setState({loading: true});
         event.preventDefault();
         let url = 'https://api.petfinder.com/v2/animals?';
         if(this.state.animaltype) {

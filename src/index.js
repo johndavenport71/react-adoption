@@ -3,13 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Animals from './animal';
 import Form from './form';
+import Pagination from './pagination';
 import * as serviceWorker from './serviceWorker';
 
 /*
 TODO:
 Break down components into smaller pieces
-  Pagination needs to be separate from form
+
 Styling
+  Get loading spinner to display when appropriate
 */
 
 class App extends Component {
@@ -21,7 +23,10 @@ class App extends Component {
         token: '',
         animals: [],
         searched: false,
-        showForm: true
+        showForm: true,
+        currentPage: 0,
+        nextPage: '',
+        prevPage: ''
       }
   
     }
@@ -77,7 +82,16 @@ class App extends Component {
           console.log(data);
           switch (status) {
               case 200:
-                  this.setState({animals: data.animals, searched: true});
+                  this.setState({
+                    animals: data.animals,
+                    searched: true,
+                    currentPage: data.pagination.current_page,
+                    nextPage: data.pagination._links.next.href
+                  });
+                  if(data.pagination._links.previous) {
+                    this.setState({prevPage: data.pagination._links.previous.href})
+                  }
+                  break;
               case 400:
                   return false;
               case 401:
@@ -107,7 +121,15 @@ class App extends Component {
             <h1>Search</h1>
           </header>    
           <Form updateList={this.getData}/>
-          {this.state.animals ? <Animals animals={this.state.animals} /> : ''}
+          {
+            this.state.animals ? 
+            <>
+              <Animals animals={this.state.animals} />
+              <Pagination current={this.state.currentPage} next={this.state.nextPage} prev={this.state.prevPage} update={this.getData} /> 
+            </>
+            : 
+            ''
+          }
           {this.state.animals.length === 0 && this.state.searched ? <h2>No results found, try changing your search criteria.</h2> : ''}
         </div>
       );

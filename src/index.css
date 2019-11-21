@@ -182,7 +182,11 @@ input[type=submit] {
   font-weight: bold;
   font-size: 36px;
   padding: .25rem 0;
-  width: 100%;
+  width: 91.5%;
+
+  position: fixed;
+  bottom: 5%;
+
 }
 
 /********PAGINATION************/

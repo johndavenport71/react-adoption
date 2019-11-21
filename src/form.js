@@ -53,7 +53,7 @@ class Form extends Component {
             <div id="form-wrapper">
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="zipcode">Zipcode:</label>
-                    <input type="text" id="zipcode" name="zipcode" value={this.state.zipcode} onChange={this.handleChange} />
+                    <input type="number" id="zipcode" name="zipcode" value={this.state.zipcode} onChange={this.handleChange} />
                     <br></br>
                     {
                         this.state.zipcode ? 

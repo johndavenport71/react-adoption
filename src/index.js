@@ -10,6 +10,8 @@ import * as serviceWorker from './serviceWorker';
 TODO:
 Break down components into smaller pieces
 
+Hide form after searching
+
 Styling
   Get loading spinner to display when appropriate
 */

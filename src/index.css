@@ -19,6 +19,7 @@ PARAGRAPH/OTHER:
 }
 
 body {
+  background: radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, #f5fdff 100%);
   font-family: 'Noto Sans', sans-serif;
   padding: 1rem;
 }
@@ -39,7 +40,7 @@ h1 {
 
 h2 {
   font-weight: 500;
-  font-size: 30px;
+  font-size: 28px;
 }
 
 h3 {
@@ -68,17 +69,19 @@ padding for tiles
 
 */
 .card {
+  background-color: #fff;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
   border-radius: 3px;
   margin: 1rem auto;
-  min-height: 250px;
+  min-height: 225px;
   padding: .5rem;
   width: 100%;
 }
 
 .img-wrapper {
-  float: left;
+  float: right;
   height: 125px;
+  margin-top: 6px;
   width: 125px;
   overflow: hidden;
 }
@@ -87,6 +90,28 @@ padding for tiles
   height: auto;
   width: 125px;
 }
+
+.card h2 {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.card a {
+  clear: both;
+}
+
+.card p {
+  color: #333;
+}
+
+.card h2 + p {
+  color: #666;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+
+
 
 /********FORM STYLING********/
 
@@ -157,18 +182,19 @@ label[for=distance] {
   position: absolute;
   text-align: right;
   padding-right: .5rem;
+  max-width: 170px;
 }
 
 #zipcode {
   right: 6%;
   top: 17px;
-  width: 150px;
+  
 }
 
 #distance {
   right: 6%;
   top: 73px;
-  width: 100px;
+ 
 }
 
 input[type=submit] {
@@ -182,11 +208,29 @@ input[type=submit] {
   font-weight: bold;
   font-size: 36px;
   padding: .25rem 0;
+  padding-bottom: 0;
   width: 91.5%;
 
   position: fixed;
   bottom: 5%;
 
+  text-transform: uppercase;
+
+}
+
+.edit {
+  background-color: #9EC0C8;
+  color: #fff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  font-family: Expletus Sans;
+  font-style: normal;
+  font-weight: bold;
+  padding: .5rem;
+  padding-bottom: .25rem;
+  width: 100%;
+
+  text-transform: uppercase;
 }
 
 /********PAGINATION************/
@@ -223,7 +267,11 @@ input[type=submit] {
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
-  padding: .25rem 0;
+  padding: .25rem;
+  padding-bottom: 0;
+
+  text-transform: uppercase;
+
 }
 
 /*******LOADING SPINNER*********/

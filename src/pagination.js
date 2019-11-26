@@ -10,6 +10,7 @@ class Pagination extends Component {
     handleClick(param) {
         let url = 'https://api.petfinder.com';
         url += param;
+        window.scrollTo(0,0);
         this.props.update(url);
     }
 

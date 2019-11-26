@@ -10,9 +10,8 @@ const Animals = ({ animals }) => {
                     <div className="img-wrapper">
                         {animal.photos[0] ? <img src={animal.photos[0].medium} alt={animal.name} /> : <img src="no-image.png" alt="" />}
                     </div>
-                    <h3>Description</h3>
                     <p>{animal.description}</p>
-                    <a href={animal.url} target="_blank" rel="noopener noreferrer" >More Info<img src="new.png" alt="" /></a>
+                    <a href={animal.url} target="_blank" rel="noopener noreferrer" >More Info...</a>
                 </div>
             ))}
         </div>

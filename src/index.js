@@ -10,8 +10,6 @@ import * as serviceWorker from './serviceWorker';
 TODO:
 Break down components into smaller pieces
 
-Hide form after searching
-
 Styling
   Get loading spinner to display when appropriate
 */
@@ -87,6 +85,7 @@ class App extends Component {
                   this.setState({
                     animals: data.animals,
                     searched: true,
+                    showForm: false,
                     currentPage: data.pagination.current_page,
                     nextPage: data.pagination._links.next.href
                   });
@@ -122,14 +121,21 @@ class App extends Component {
             <img src="logo_transparent.png" alt="Pawsome logo" width="75" height="75"/>
             <h1>Search</h1>
           </header>    
-          <Form updateList={this.getData}/>
+          {
+            this.state.showForm ? 
+            <Form updateList={this.getData}/> : 
+            <button className="edit" onClick={() => {this.setState({showForm: true})}}>Edit Search</button>
+          }
           {
             this.state.animals ? 
-            <>
-              <Animals animals={this.state.animals} />
-              <Pagination current={this.state.currentPage} next={this.state.nextPage} prev={this.state.prevPage} update={this.getData} /> 
-            </>
+            <Animals animals={this.state.animals} />
             : 
+            ''
+          }
+          {
+            this.state.animals && this.state.showForm === false ? 
+            <Pagination current={this.state.currentPage} next={this.state.nextPage} prev={this.state.prevPage} update={this.getData} /> 
+            :
             ''
           }
           {this.state.animals.length === 0 && this.state.searched ? <h2>No results found, try changing your search criteria.</h2> : ''}

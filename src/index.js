@@ -24,6 +24,7 @@ class App extends Component {
         animals: [],
         searched: false,
         showForm: true,
+        loading: false,
         currentPage: 0,
         nextPage: '',
         prevPage: ''
@@ -68,6 +69,7 @@ class App extends Component {
 
     fetchAnimals(url = 'https://api.petfinder.com/v2/animals?', token) {
       let status = 0;
+      this.setState({loading: true, animals: 0});
       fetch(url, {
           method: 'get',
           headers: {
@@ -102,6 +104,8 @@ class App extends Component {
               default:
                   return false;
           }//end switch
+
+          this.setState({loading: false});
       })
       .catch(console.log)
     }//end fetchAnimals
@@ -131,6 +135,9 @@ class App extends Component {
             <Animals animals={this.state.animals} />
             : 
             ''
+          }
+          {
+            this.state.loading ? <div className="lds-ring"><div></div><div></div><div></div><div></div></div> : ''
           }
           {
             this.state.animals && this.state.showForm === false ? 

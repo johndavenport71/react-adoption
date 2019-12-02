@@ -79,9 +79,11 @@ padding for tiles
 }
 
 .img-wrapper {
+  border-radius: 3px;
   float: right;
   height: 125px;
   margin-top: 6px;
+  margin-left: 6px;
   width: 125px;
   overflow: hidden;
 }
@@ -276,10 +278,11 @@ input[type=submit] {
 
 /*******LOADING SPINNER*********/
 .lds-ring {
-  display: inline-block;
+  display: block;
   position: relative;
   width: 64px;
   height: 64px;
+  margin: 0 auto;
 }
 
 .lds-ring div {
@@ -293,10 +296,6 @@ input[type=submit] {
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   border-color: #D47D9E transparent transparent transparent;
-
-  /*Spinner Position*/
-  top: 150%;
-  left: 220%;
 }
 
 .lds-ring div:nth-child(1) {

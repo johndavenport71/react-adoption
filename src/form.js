@@ -9,8 +9,7 @@ class Form extends Component {
             animaltype: '',
             breed: '',
             gender: '',
-            distance: 100,
-            loading: true
+            distance: 100
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -43,13 +42,8 @@ class Form extends Component {
         this.props.updateList(url);
     }
 
-    componentDidMount() {
-        this.setState({loading: false});
-    }
-
     render () {
         return (
-            <>
             <div id="form-wrapper">
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="zipcode">Zipcode:</label>
@@ -113,9 +107,7 @@ class Form extends Component {
                     <br></br>
                     <input type="submit" value="Search" />
                 </form>
-                </div>
-                {this.state.loading ? <div className="lds-ring"><div></div><div></div><div></div><div></div></div> : ''}
-            </>
+            </div>
         );
     }
 }

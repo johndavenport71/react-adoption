@@ -81,7 +81,6 @@ class App extends Component {
           return res.json();
       })
       .then((data) => {
-          console.log(data);
           switch (status) {
               case 200:
                   this.setState({

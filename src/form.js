@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Options from './options';
+import * as breeds from './breeds.json';
 
 class Form extends Component {
     constructor (props) {
@@ -11,7 +13,6 @@ class Form extends Component {
             gender: '',
             distance: 100
         };
-
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -43,6 +44,9 @@ class Form extends Component {
     }
 
     render () {
+        const dogBreeds = breeds.default.dogs.map((dog) => dog.name);
+        const catBreeds = breeds.default.cats.map((cat) => cat.name);
+
         return (
             <div id="form-wrapper">
                 <form onSubmit={this.handleSubmit}>
@@ -69,12 +73,7 @@ class Form extends Component {
                         <>
                             <select id="cat-breed" name="breed" value={this.state.breed} onChange={this.handleChange}>
                                 <option value="">Select a Breed (optional)</option>
-                                <option value="Calico">Calico</option>
-                                <option value="Domestic Short Hair">Domestic Short Hair</option>
-                                <option value="Domestic Long Hair">Domestic Long Hair</option>
-                                <option value="Maine Coon">Maine Coon</option>
-                                <option value="Tabby">Tabby</option>
-                                <option value="Tuxedo">Tuxedo</option>
+                                <Options args={catBreeds} />
                             </select>
                             <br></br>
                         </>
@@ -84,12 +83,7 @@ class Form extends Component {
                         <>
                             <select id="dog-breed" name="breed" value={this.state.breed} onChange={this.handleChange}>
                                 <option value="">Breed (optional)</option>
-                                <option value="Beagle">Beagle</option>
-                                <option value="Boxer">Boxer</option>
-                                <option value="Chihuahua">Chihuahua</option>
-                                <option value="Retriever">Retriever</option>
-                                <option value="Shepherd">Shepherd</option>
-                                <option value="Terrier">Terrier</option>
+                                <Options args={dogBreeds} />
                             </select>
                             <br></br>
                         </>

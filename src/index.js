@@ -27,7 +27,7 @@ class App extends Component {
         loading: false,
         currentPage: 0,
         nextPage: '',
-        prevPage: ''
+        prevPage: '',
       }
   
     }
@@ -126,7 +126,7 @@ class App extends Component {
           </header>    
           {
             this.state.showForm ? 
-            <Form updateList={this.getData}/> : 
+            <Form updateList={this.getData} breeds={[this.state.dogBreeds, this.state.catBreeds]}/> : 
             <button className="edit" onClick={() => {this.setState({showForm: true})}}>Edit Search</button>
           }
           {

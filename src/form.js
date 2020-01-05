@@ -50,14 +50,12 @@ class Form extends Component {
                     <input type="number" id="zipcode" name="zipcode" value={this.state.zipcode} onChange={this.handleChange} />
                     <br></br>
                     {
-                        this.state.zipcode ? 
+                        this.state.zipcode && 
                         <>
                             <label htmlFor="distance">Distance (mi):</label>
                             <input type="number" id="distance" name="distance" value={this.state.distance} onChange={this.handleChange} />
                             <br></br>
                         </>
-                        :
-                        ''
                     }
                     
                     <select id="animaltype" name="animaltype" value={this.state.animaltype} onChange={this.handleChange} >
@@ -67,7 +65,7 @@ class Form extends Component {
                     </select>
                     <br></br>
                     {
-                        this.state.animaltype === 'cat' ? 
+                        this.state.animaltype === 'cat' &&
                         <>
                             <select id="cat-breed" name="breed" value={this.state.breed} onChange={this.handleChange}>
                                 <option value="">Select a Breed (optional)</option>
@@ -80,10 +78,9 @@ class Form extends Component {
                             </select>
                             <br></br>
                         </>
-                        : '' 
                     }
                     {
-                        this.state.animaltype === 'dog' ?
+                        this.state.animaltype === 'dog' &&
                         <>
                             <select id="dog-breed" name="breed" value={this.state.breed} onChange={this.handleChange}>
                                 <option value="">Breed (optional)</option>
@@ -96,7 +93,6 @@ class Form extends Component {
                             </select>
                             <br></br>
                         </>
-                        : ''
                     }
                     
                     <select id="gender" name="gender" value={this.state.gender} onChange={this.handleChange}>

@@ -60,7 +60,7 @@ class App extends Component {
               console.log('bad auth');
               break;
             default:
-              console.log('Something went wrong?');
+              console.log('Something went wrong');
               break;
           }
         })
@@ -130,21 +130,21 @@ class App extends Component {
             <button className="edit" onClick={() => {this.setState({showForm: true})}}>Edit Search</button>
           }
           {
-            this.state.animals ? 
+            this.state.animals && this.state.animals.length !== 0 ?
             <Animals animals={this.state.animals} />
-            : 
+            :
             ''
           }
           {
-            this.state.loading ? <div className="lds-ring"><div></div><div></div><div></div><div></div></div> : ''
+            this.state.loading && <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
           }
           {
-            this.state.animals && this.state.showForm === false ? 
+            this.state.animals && this.state.showForm === false ?
             <Pagination current={this.state.currentPage} next={this.state.nextPage} prev={this.state.prevPage} update={this.getData} /> 
             :
             ''
           }
-          {this.state.animals.length === 0 && this.state.searched ? <h2>No results found, try changing your search criteria.</h2> : ''}
+          {this.state.animals.length === 0 && this.state.searched && <h2>No results found, try changing your search criteria.</h2>}
         </div>
       );
     }

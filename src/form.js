@@ -52,22 +52,18 @@ class Form extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="zipcode">Zipcode:</label>
                     <input type="number" id="zipcode" name="zipcode" value={this.state.zipcode} onChange={this.handleChange} />
-                    <br></br>
                     {
                         this.state.zipcode && 
                         <>
                             <label htmlFor="distance">Distance (mi):</label>
                             <input type="number" id="distance" name="distance" value={this.state.distance} onChange={this.handleChange} />
-                            <br></br>
                         </>
                     }
-                    
                     <select id="animaltype" name="animaltype" value={this.state.animaltype} onChange={this.handleChange} >
                         <option value="">Animal Type</option>
                         <option value="cat">Cats</option>
                         <option value="dog">Dogs</option>
                     </select>
-                    <br></br>
                     {
                         this.state.animaltype === 'cat' &&
                         <>
@@ -75,7 +71,6 @@ class Form extends Component {
                                 <option value="">Select a Breed (optional)</option>
                                 <Options args={catBreeds} />
                             </select>
-                            <br></br>
                         </>
                     }
                     {
@@ -85,16 +80,13 @@ class Form extends Component {
                                 <option value="">Breed (optional)</option>
                                 <Options args={dogBreeds} />
                             </select>
-                            <br></br>
                         </>
                     }
-                    
                     <select id="gender" name="gender" value={this.state.gender} onChange={this.handleChange}>
                         <option value="">Gender (optional)</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </select>
-                    <br></br>
                     <input type="submit" value="Search" />
                 </form>
             </div>

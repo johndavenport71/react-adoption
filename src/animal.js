@@ -11,7 +11,14 @@ const Animals = ({ animals }) => {
                         {animal.photos[0] ? <img src={animal.photos[0].medium} alt={animal.name} /> : <img src="no-image.png" alt="" />}
                     </div>
                     <p>{animal.description}</p>
-                    <a href={animal.url} target="_blank" rel="noopener noreferrer" >More Info &#x1f875;</a>
+                    <a href={animal.url} target="_blank" rel="noopener noreferrer" >
+                        More Info 
+                        {/* 
+                            External link icon from FontAwesome used under Creative Commons Attribution 4.0 International License 
+                            Link to license: https://fontawesome.com/license
+                        */}
+                        <img src="external-link-alt-solid.svg" alt="" />
+                    </a>
                 </div>
             ))}
         </div>

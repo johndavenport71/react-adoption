@@ -6,14 +6,6 @@ import Form from './form';
 import Pagination from './pagination';
 import * as serviceWorker from './serviceWorker';
 
-/*
-TODO:
-Break down components into smaller pieces
-
-Styling
-  Get loading spinner to display when appropriate
-*/
-
 class App extends Component {
     constructor(props) {
       super(props);
@@ -126,7 +118,7 @@ class App extends Component {
           </header>    
           {
             this.state.showForm ? 
-            <Form updateList={this.getData} breeds={[this.state.dogBreeds, this.state.catBreeds]}/> : 
+            <Form updateList={this.getData}/> : 
             <button className="edit" onClick={() => {this.setState({showForm: true})}}>Edit Search</button>
           }
           {

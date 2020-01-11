@@ -115,12 +115,6 @@ header h1 {
 
 /********FORM STYLING********/
 
-/*
-
-Make sure spacing between fields is consistent
-
-
-*/
 form {
   display: flex;
   flex-direction: column;

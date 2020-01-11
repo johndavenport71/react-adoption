@@ -17,9 +17,9 @@ class Pagination extends Component {
     render () {
         return (
             <div className="pagination">
-                {this.props.current > 1 && <button onClick={() => {this.handleClick(this.props.prev)}}>Previous</button>}
+                {this.props.current > 1 && this.props.prev && <button onClick={() => {this.handleClick(this.props.prev)}}>Previous</button>}
                 {this.props.current > 0 && <p>{this.props.current}</p>}
-                {this.props.current >= 1 && <button onClick={() => {this.handleClick(this.props.next)}}>Next</button>}
+                {this.props.current >= 1 && this.props.next && <button onClick={() => {this.handleClick(this.props.next)}}>Next</button>}
             </div>
         );
     }

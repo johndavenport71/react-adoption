@@ -8,7 +8,10 @@ const Animals = ({ animals }) => {
                     <h2>{animal.name}</h2>
                     <p>{animal.gender} - {animal.type} - {animal.breeds.primary}</p>
                     <div className="img-wrapper">
-                        {animal.photos[0] ? <img src={animal.photos[0].medium} alt={animal.name} /> : <img src="no-image.png" alt="" />}
+                        {animal.photos[0] ? 
+                            <img src={animal.photos[0].medium} alt={animal.name}/> 
+                            : 
+                            <img src="no-image.png" alt="" />}
                     </div>
                     <p>{animal.description}</p>
                     <a href={animal.url} target="_blank" rel="noopener noreferrer" >

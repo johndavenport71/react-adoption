@@ -20,6 +20,7 @@ class App extends Component {
         currentPage: 0,
         nextPage: '',
         prevPage: '',
+        searchParams: {},
       }
   
     }
@@ -73,36 +74,44 @@ class App extends Component {
           return res.json();
       })
       .then((data) => {
-          switch (status) {
-              case 200:
-                  this.setState({
+        switch (status) {
+            case 200:
+                this.setState({
                     animals: data.animals,
                     searched: true,
                     showForm: false,
                     currentPage: data.pagination.current_page,
-                    nextPage: data.pagination._links.next.href
-                  });
-                  if(data.pagination._links.previous) {
+                    loading: false
+                });
+                
+                if(data.pagination._links.next) {
+                    this.setState({nextPage: data.pagination._links.next.href});
+                }
+                if(data.pagination._links.previous) {
                     this.setState({prevPage: data.pagination._links.previous.href})
-                  }
-                  break;
-              case 400:
-                  return false;
-              case 401:
-                  return false;
-              case 500:
-                  return false;
-              default:
-                  return false;
-          }//end switch
+                }
+                break;
+            case 400:
+                return false;
+            case 401:
+                return false;
+            case 500:
+                return false;
+            default:
+                return false;
+        }//end switch
 
-          this.setState({loading: false});
+        this.setState({loading: false});
       })
       .catch(console.log)
     }//end fetchAnimals
     
     getData = (url) => {
       this.fetchAnimals(url, this.state.token);
+    }
+
+    getValues = (values) => {
+        this.setState({searchParams: values});
     }
     
     componentDidMount() {
@@ -118,7 +127,7 @@ class App extends Component {
           </header>    
           {
             this.state.showForm ? 
-            <Form updateList={this.getData}/> : 
+            <Form updateList={this.getData} getValues={this.getValues} values={this.state.searchParams && this.state.searchParams}/> : 
             <button className="edit" onClick={() => {this.setState({showForm: true})}}>Edit Search</button>
           }
           {

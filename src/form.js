@@ -5,7 +5,6 @@ import * as breeds from './breeds.json';
 class Form extends Component {
     constructor (props) {
         super(props);
-
         this.state = {
             zipcode: '',
             animaltype: '',
@@ -13,12 +12,22 @@ class Form extends Component {
             gender: '',
             distance: 100
         };
+        
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        if(this.props.values) {
+            this.setState(this.props.values);
+        }
+    }
+
     handleChange(event) {
         var fieldName = event.target.name;
+        if(fieldName === 'animaltype') {
+            this.setState({breed: ''})
+        }
         this.setState({[fieldName]: event.target.value});
     }
 
@@ -40,6 +49,7 @@ class Form extends Component {
         if(this.state.gender) {
             url += 'gender=' + this.state.gender + '&';
         }
+        this.props.getValues(this.state);
         this.props.updateList(url);
     }
 
